@@ -40,7 +40,9 @@ chrome.tabs.onCreated.addListener((tab) => {
 
   chrome.tabs.move(tab.id, { index: desiredIndex }).then(() =>
     refreshWindowTabs(tab.windowId)
-  );
+  ).catch(() => {
+    // Tab might have been closed before we could move it
+  });
 });
 
 chrome.tabs.onRemoved.addListener((tabId, removeInfo) => {
@@ -65,14 +67,21 @@ chrome.tabs.onRemoved.addListener((tabId, removeInfo) => {
     }
     chrome.tabs.update(target.id, { active: true }).then(() =>
       refreshWindowTabs(windowId)
-    );
+    ).catch(() => {
+      // Tab might have been closed
+    });
+  }).catch(() => {
+    // Window might have been closed
   });
 });
 
 chrome.tabs.onActivated.addListener(({ tabId, windowId }) => {
   chrome.tabs.get(tabId).then((tab) => {
+    if (chrome.runtime.lastError || !tab) return;
     activeTabInfo.set(windowId, { tabId: tab.id, index: tab.index });
     tabIndexMap.set(tab.id, { windowId, index: tab.index });
+  }).catch(() => {
+    // Tab might have been closed before we could get its info
   });
 });
 
