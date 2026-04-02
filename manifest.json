@@ -1,10 +1,25 @@
 {
   "manifest_version": 3,
   "name": "Tab Neighbors",
-  "version": "1.0",
+  "version": "1.1",
   "description": "New tabs open next to the active tab; closing a tab activates the left neighbor.",
   "permissions": ["tabs"],
   "background": {
     "service_worker": "background.js"
+  },
+  "commands": {
+    "close-other-tabs": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+E",
+        "mac": "Command+Shift+E"
+      },
+      "description": "Close all other tabs in the current window"
+    },
+    "close-tabs-to-right": {
+      "description": "Close all tabs to the right of the active tab"
+    },
+    "duplicate-tab": {
+      "description": "Duplicate the active tab"
+    }
   }
 }

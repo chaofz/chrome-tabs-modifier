@@ -88,3 +88,20 @@ chrome.tabs.onDetached.addListener((tabId, detachInfo) => {
 chrome.tabs.onAttached.addListener((_tabId, attachInfo) => {
   refreshWindowTabs(attachInfo.newWindowId);
 });
+
+chrome.commands.onCommand.addListener((command) => {
+  chrome.tabs.query({ currentWindow: true }).then((tabs) => {
+    const active = tabs.find((t) => t.active);
+    if (!active) return;
+
+    if (command === "close-other-tabs") {
+      const others = tabs.filter((t) => t.id !== active.id).map((t) => t.id);
+      if (others.length) chrome.tabs.remove(others);
+    } else if (command === "close-tabs-to-right") {
+      const right = tabs.filter((t) => t.index > active.index).map((t) => t.id);
+      if (right.length) chrome.tabs.remove(right);
+    } else if (command === "duplicate-tab") {
+      chrome.tabs.duplicate(active.id);
+    }
+  });
+});
