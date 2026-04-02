@@ -1,0 +1,10 @@
+{
+  "manifest_version": 3,
+  "name": "Tab Neighbors",
+  "version": "1.0",
+  "description": "New tabs open next to the active tab; closing a tab activates the left neighbor.",
+  "permissions": ["tabs"],
+  "background": {
+    "service_worker": "background.js"
+  }
+}
