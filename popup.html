@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Bulk tabs</title>
+    <style>
+      :root {
+        --bg: #f6f7f9;
+        --border: #d8dde4;
+        --text: #1a1d24;
+        --accent: #4a6fa8;
+        --accent-hover: #3d5d8f;
+        --radius-panel: 8px;
+        --radius-field: 6px;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        margin: 0;
+        border-radius: var(--radius-panel);
+        overflow: hidden;
+      }
+      body {
+        width: 380px;
+        padding: 15px;
+        font-family: system-ui, -apple-system, Segoe UI, sans-serif;
+        font-size: 13px;
+        color: var(--text);
+        background: var(--bg);
+      }
+      label {
+        display: block;
+        font-size: 16px;
+        font-weight: 600;
+        margin-bottom: 8px;
+      }
+      textarea {
+        width: 100%;
+        min-height: 200px;
+        padding: 10px;
+        border: 1px solid var(--border);
+        border-radius: var(--radius-field);
+        font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+        font-size: 12px;
+        line-height: 1.45;
+        resize: vertical;
+        background: #fff;
+        white-space: pre;
+        overflow-x: auto;
+        overflow-y: auto;
+      }
+      textarea:focus {
+        outline: 2px solid rgba(74, 111, 168, 0.4);
+        border-color: var(--accent);
+      }
+      button {
+        margin-top: 10px;
+        width: 100%;
+        padding: 10px 14px;
+        border: none;
+        border-radius: var(--radius-panel);
+        font-size: 13px;
+        font-weight: 600;
+        cursor: pointer;
+        background: var(--accent);
+        color: #fff;
+      }
+      button:hover {
+        background: var(--accent-hover);
+      }
+      button:active {
+        transform: scale(0.99);
+      }
+    </style>
+  </head>
+  <body>
+    <label for="urls">Open URLs</label>
+    <textarea id="urls" spellcheck="false" wrap="off"></textarea>
+    <button type="button" id="open">Open tabs</button>
+    <script src="popup.js"></script>
+  </body>
+</html>

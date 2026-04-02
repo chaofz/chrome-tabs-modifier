@@ -100,8 +100,18 @@ chrome.commands.onCommand.addListener((command) => {
     } else if (command === "close-tabs-to-right") {
       const right = tabs.filter((t) => t.index > active.index).map((t) => t.id);
       if (right.length) chrome.tabs.remove(right);
-    } else if (command === "duplicate-tab") {
-      chrome.tabs.duplicate(active.id);
+    } else if (command === "copy-url") {
+      const url = active.url;
+      if (!url || url.startsWith('chrome://') || url.startsWith('chrome-extension://') || url.startsWith('edge://')) {
+        return;
+      }
+      chrome.scripting.executeScript({
+        target: { tabId: active.id },
+        func: (text) => navigator.clipboard.writeText(text),
+        args: [url],
+      }).catch(() => {
+        // Fallback: some pages may block scripting
+      });
     }
   });
 });

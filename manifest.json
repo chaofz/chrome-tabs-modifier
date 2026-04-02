@@ -1,25 +1,55 @@
 {
   "manifest_version": 3,
-  "name": "Tab Neighbors",
-  "version": "1.1",
+  "name": "Tabs Modifier",
+  "version": "1.3",
   "description": "New tabs open next to the active tab; closing a tab activates the left neighbor.",
-  "permissions": ["tabs"],
+  "permissions": [
+    "tabs",
+    "activeTab",
+    "scripting",
+    "clipboardWrite"
+  ],
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Bulk open / copy tabs",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
   "background": {
     "service_worker": "background.js"
   },
   "commands": {
+    "_execute_action": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+O",
+        "mac": "Command+Shift+O"
+      },
+      "description": "Open bulk tabs panel"
+    },
+    "copy-url": {
+      "suggested_key": {
+        "default": "Ctrl+Period",
+        "mac": "Command+Period"
+      },
+      "description": "Copy current tab URL"
+    },
     "close-other-tabs": {
       "suggested_key": {
         "default": "Ctrl+Shift+E",
         "mac": "Command+Shift+E"
       },
-      "description": "Close all other tabs in the current window"
+      "description": "Close all other tabs"
     },
     "close-tabs-to-right": {
-      "description": "Close all tabs to the right of the active tab"
-    },
-    "duplicate-tab": {
-      "description": "Duplicate the active tab"
+      "description": "Close all tabs to the right"
     }
   }
 }
